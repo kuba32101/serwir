@@ -22,6 +22,7 @@
 <body>
 	<h1>"Czat"</h1>
 	<textarea id="sharedText" placeholder='pisz na "Czat"'></textarea><br>
+	<input type="text" id="Nazwa">
 	<button id="sendBtn">Wyślij</button>
 	<div class="info">
 		Każdy, kto wejdzie tu widzi ten sam tekst.
@@ -32,8 +33,9 @@
 		const textarea = document.getElementById('sharedText');
 		const sendBtn = document.getElementById('sendBtn');
 		const outputSpan = document.getElementById('tu');
+		const inp = document.getElementById("Nazwa");
 
-		const socket = io();  // łączy się z http://localhost:5000
+		const socket = io("http://localhost:5000");  // łączy się z http://localhost:5000
 
 		socket.on('connect', () => {
 			console.log('Połączono z Socket.IO');
@@ -44,9 +46,9 @@
 		});
 
 		socket.on('update_text', (text) => {
-			if (text === "") return; else{ 
+			if (text === "" && inp === "") return; else{ 
 			console.log('update_text z serwera:', text);
-			outputSpan.textContent += text + "\n";
+			outputSpan.textContent += inp.value + ": " + text + "\n";
 			}
 		});
 
@@ -58,5 +60,4 @@
 		});
 	</script>
 </body>
-
 </html>
