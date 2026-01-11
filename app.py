@@ -9,9 +9,9 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 shared_text = ""
 
-@app.route('/gra-mafijna')
+@app.route('/')
 def gra_mafijna():
-    return render_template('gra-mafijna.html')
+    return render_template('index.html')
 
 @socketio.on('connect')
 def handle_connect():
@@ -29,4 +29,5 @@ def handle_text_changed(data):
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
+
     socketio.run(app, host='0.0.0.0', port=port)
