@@ -33,7 +33,7 @@
 		const sendBtn = document.getElementById('sendBtn');
 		const outputSpan = document.getElementById('tu');
 
-		const socket = io("http://localhost:5000");  // łączy się z http://localhost:5000
+		const socket = io();  // łączy się z http://localhost:5000
 
 		socket.on('connect', () => {
 			console.log('Połączono z Socket.IO');
@@ -58,4 +58,5 @@
 		});
 	</script>
 </body>
+
 </html>
