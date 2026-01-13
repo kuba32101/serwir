@@ -44,21 +44,27 @@
 		socket.on('connect_error', (err) => {
 			console.error('Błąd połączenia:', err);
 		});
-
-		socket.on('update_text', (text) => {
-			if (text === "" && inp === "") return; else{ 
+		
+		socket.on('update_history', (data) => {
+			outputSpan.textContent += data.inp + ": "+ data.text + "\n";
+		}
+		/*socket.on('update_text', (text) => {
+			if (text === "" || inp === "") {alert("Wpisz nazwę/wiadomość"); return;} else{ 
 			console.log('update_text z serwera:', text);
 			outputSpan.textContent += inp.value + ": " + text + "\n";
 			}
-		});
+		});*/
 
 		sendBtn.addEventListener('click', () => {
+			if (!inp.value.trim || !textarea.value.trim) {
+				alert("Wpisz coś");
+				return;
+			}
 			const text = textarea.value;
 			console.log('wysyłam text_changed:', text);
-			socket.emit('text_changed', { text });
+			socket.emit('update_text', {inp: inp.value, text: textarea.value});
 			textarea.value = '';
 		});
 	</script>
 </body>
-
 </html>
