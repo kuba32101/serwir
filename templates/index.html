@@ -51,7 +51,7 @@
 				top: outputSpan.scrollHeight,
 				behavior: "smooth"
 			});
-		}
+		});
 		/*socket.on('update_text', (text) => {
 			if (text === "" || inp === "") {alert("Wpisz nazwę/wiadomość"); return;} else{ 
 			console.log('update_text z serwera:', text);
@@ -60,7 +60,7 @@
 		});*/
 
 		sendBtn.addEventListener('click', () => {
-			if (!inp.value.trim || !textarea.value.trim) {
+			if (!inp.value.trim() || !textarea.value.trim()) {
 				alert("Wpisz coś");
 				return;
 			}
