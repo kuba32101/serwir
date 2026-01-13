@@ -47,6 +47,10 @@
 		
 		socket.on('update_history', (data) => {
 			outputSpan.textContent += data.inp + ": "+ data.text + "\n";
+			outputSpan.scrollTo({
+				top: outputSpan.scrollHeight,
+				behavior: "smooth"
+			})
 		}
 		/*socket.on('update_text', (text) => {
 			if (text === "" || inp === "") {alert("Wpisz nazwę/wiadomość"); return;} else{ 
