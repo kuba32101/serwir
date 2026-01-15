@@ -34,6 +34,7 @@
 		const sendBtn = document.getElementById('sendBtn');
 		const outputSpan = document.getElementById('tu');
 		const inp = document.getElementById("Nazwa");
+		const dziwk = new Audio("notification-457196.mp3");
 
 		const socket = io();  // łączy się z http://localhost:5000
 
@@ -50,6 +51,8 @@
 			outputSpan.scrollTo({
 				top: outputSpan.scrollHeight,
 				behavior: "smooth"
+				dziwk.currentTime = 0;
+				dziwk.play();
 			});
 		});
 		/*socket.on('update_text', (text) => {
