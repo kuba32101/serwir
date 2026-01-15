@@ -48,11 +48,11 @@
 		
 		socket.on('update_history', (data) => {
 			outputSpan.textContent += data.inp + ": "+ data.text + "\n";
+			dziwk.currentTime = 0;
+			dziwk.play();
 			outputSpan.scrollTo({
 				top: outputSpan.scrollHeight,
 				behavior: "smooth"
-				dziwk.currentTime = 0;
-				dziwk.play();
 			});
 		});
 		/*socket.on('update_text', (text) => {
@@ -74,4 +74,5 @@
 		});
 	</script>
 </body>
+
 </html>
