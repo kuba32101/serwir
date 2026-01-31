@@ -72,11 +72,18 @@
 		<option value="DS">Daria Sarlej</option>
 		<option value="KS">Karolina Smoleń</option>
 		<option value="WS">Wojtek Suchodolski</option>
+		<option value="MG">Mateusz Góra</option>
 	</select>
 	<input id="login" name="login" placeholder="<= Kto się loguje?" title="Zaznacz kto się loguje" disabled>
 	<button id="wysli" name="wysli">Wyślij</button>
 	
 	<script>
+		const zalogowany = localStorage.getItem('zalogowany');
+		const osub = localStorage.getItem('osoba');
+		if (zalogowany === 'true' && osoba) {
+			window.location.href = "index.html";
+		}
+		
 		const input = document.getElementById("login");
 		const sel = document.getElementById("osoby");
 		const btn   = document.getElementById("wysli");
@@ -119,9 +126,13 @@
 			
 			if (!poprawnyLogin) {
 				alert("Brak loginu dla tej osoby");
+				return;
 			} 
 			if (wpisanyLogin === poprawnyLogin) {
-				window.location.href = "home.html";
+				localStorage.setItem('zalogowany', 'true');
+				localStorage.setItem('osoba', osoba)
+				
+				window.location.href = "index.html";
 			} else {
 				alert("Niepoprawny login")
 			}
