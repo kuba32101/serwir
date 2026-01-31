@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Logowanie</title>
+	<style>
+		body {
+			background-color: white;
+			text-align: center;
+			margin: 0;
+			font-family: sans-serif;
+		}
+		[name="osoby"] {
+			display: inline-block;
+			width: 11vw;
+			height: 3vh;
+			font-size: 2vh;
+			border: solid black 2px;
+			border-radius: 5px;
+			position: relative;
+			left: -20vw;
+			top: 2vh;
+		}
+		[name="osoby"]:hover {
+			cursor: pointer;
+		}
+		[name="login"] {
+			padding: 0;
+			display: inline-block;
+			width: 10vw;
+			height: 3vh;
+			font-size: 2vh;
+			border: solid black 2px;
+			border-radius: 5px;
+			position: relative;
+			left: -6vw;
+			top: 2vh;
+		}
+		#wysli {
+			display: block;
+			width: 7vw;
+			height: 3vh;
+			margin: 0 auto;
+			position: relative;
+			top: 3vh;
+			border: solid black 2px;
+			border-radius: 5px;
+			font-size: 2vh;
+		}
+	</style>
+</head>
+<body>
+	<h1>Logowanie</h1>
+	<select id="osoby" name="osoby" required>
+		<option value="" disabled selected hidden>Kto się loguje?</option>
+		<option value="IB">Igor Błażkiewicz</option>
+		<option value="AC">Ala Curyło</option>
+		<option value="MD">Michalina Duch</option>
+		<option value="AG">Adrian Góral</option>
+		<option value="KG">Kuba Gawryś</option>
+		<option value="MH">Masza Horodetska</option>
+		<option value="MK">Miłosz Kuras</option>
+		<option value="JM">Julka Machowska</option>
+		<option value="AM">Ada Marzec</option>
+		<option value="BM">Bartek Mietła</option>
+		<option value="PM">Paulina Migdał</option>
+		<option value="KM">Krzysiek Mleczko</option>
+		<option value="SM">Seweryn Młynarczyk</option>
+		<option value="BN">Bartek Nosal</option>
+		<option value="KO">Kuba Opioła</option>
+		<option value="ko">Kacper Oszczypała</option>
+		<option value="DS">Daria Sarlej</option>
+		<option value="KS">Karolina Smoleń</option>
+		<option value="WS">Wojtek Suchodolski</option>
+	</select>
+	<input id="login" name="login" placeholder="<= Kto się loguje?" title="Zaznacz kto się loguje" disabled>
+	<button id="wysli" name="wysli">Wyślij</button>
+	
+	<script>
+		const input = document.getElementById("login");
+		const sel = document.getElementById("osoby");
+		const btn   = document.getElementById("wysli");
+		
+		let loginy = {};
+		
+		
+		fetch('loginy.json')
+			.then(res => res.json())
+			.then(data => {
+				loginy = data;
+				console.log("wczytane loginy: ", loginy);
+			})
+			.catch(err => console.error("Błąd wczytania loginy.json: ", err));
+		
+		sel.addEventListener('change', function() {
+			if (sel.value != "") {
+				input.disabled = false;
+				input.placeholder = "Wpisz swój login";
+				input.title = "Wpisz swój login";
+			} else {
+				input.disabled = true;
+				input.placeholder = "<= Kto się loguje?";
+				input.title = "Zaznacz kto się loguje";
+			}
+		});
+		btn.addEventListener('click', function () {
+			if (sel.value === "") {
+				alert("Najpierw wybierz osobę");
+				return;
+			}
+			if (input.value.trim() === "") {
+				alert("Wpisz login");
+				return;
+			}
+			const osoba = sel.options[sel.selectedIndex].textContent.trim();
+			const wpisanyLogin = input.value.trim();
+			
+			const poprawnyLogin = loginy[osoba];
+			
+			if (!poprawnyLogin) {
+				alert("Brak loginu dla tej osoby");
+			} 
+			if (wpisanyLogin === poprawnyLogin) {
+				window.location.href = "home.html";
+			} else {
+				alert("Niepoprawny login")
+			}
+		});
+	</script>
+</body>
+</html>

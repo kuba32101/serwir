@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Strona główna</title>
+	<title>Gry</title>
 	<style>
 		body {
 			background-color: white;
@@ -36,12 +36,15 @@
 			left: 2vw;
 			top: 25%;
 		}
-		.img {
-			width: 10vw;
-			height: 10vh;
-		}
 		#zalogin {
 			display: none;
+		}
+		#pokoje {
+			padding: 5px;
+		}
+		.rom {
+			width: 20vw;
+			height: 10vh;
 		}
 	</style>
 </head>
@@ -58,9 +61,13 @@
 		<a href="gry.html" class="ag">Gry</a>
 		<a href="członki.html" class="ag">Członki</a>
 	</div>
-	<h1>Strona główna</h1>
-	<h2>TU JEST JEDNA GRA!!!</h2>
+	<h1>Gry</h1>
+	<div class="dv">
+	<a href="gra-mafijna-lobby.html">
+	<h2>Mafia</h2>
 	<img src="mafia.jpg" alt="Nie załadował obras" class="img">
+	<p>Kliknij aby przejść do gry</p>
+	</a>
 	</div>
 	<script>
 		const zalogowany = localStorage.getItem('zalogowany');

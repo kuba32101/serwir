@@ -4,27 +4,30 @@ import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'tajny_klucz'
+pokoje = []
+
+app.config['SECRET_KEY'] = 'q9eryvcnjisnsxuc'
 socketio = SocketIO(app, cors_allowed_origins="*")
-
-shared_text = ""
-
-@app.route('/')
-def gra_mafijna():
-    return render_template('index.html')
     
+@app.route('/gra-mafijna-lobby')
+def gra_mafijna():
+    return render_template('gra-mafijna-lobby.html')
+
 @socketio.on('connect')
 def handle_connect():
-    print('Nowe połączenie')
-
-@socketio.on('update_text')
-def update_history(data):
-    inp = data.get('inp')
-    text = data.get('text')
-    if not inp or not text:
-        return
+    print("Nowe połączenie")
+    emit('connectRom', pokoje)
     
-    emit('update_history', {'inp': inp, 'text': text}, broadcast=True)
+@socketio.on('robPokoj')
+def robPokoj(data):
+    global pokoje
+    if data in pokoje:
+        emit('pokujNE')
+        return
+    else:
+        pokoje.append(data)
+        emit('pokujOK', data, broadcast=True)
+        print("new pokuj")
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

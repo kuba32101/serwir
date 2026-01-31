@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Strona główna</title>
+	<title>Członki</title>
 	<style>
 		body {
 			background-color: white;
@@ -36,12 +36,15 @@
 			left: 2vw;
 			top: 25%;
 		}
-		.img {
-			width: 10vw;
-			height: 10vh;
-		}
 		#zalogin {
 			display: none;
+		}
+		#pokoje {
+			padding: 5px;
+		}
+		.rom {
+			width: 20vw;
+			height: 10vh;
 		}
 	</style>
 </head>
@@ -58,10 +61,8 @@
 		<a href="gry.html" class="ag">Gry</a>
 		<a href="członki.html" class="ag">Członki</a>
 	</div>
-	<h1>Strona główna</h1>
-	<h2>TU JEST JEDNA GRA!!!</h2>
-	<img src="mafia.jpg" alt="Nie załadował obras" class="img">
-	</div>
+	<h1>Członki</h1>
+	<div id="dv"></div>
 	<script>
 		const zalogowany = localStorage.getItem('zalogowany');
 		const osub = localStorage.getItem('osoba');
@@ -69,6 +70,27 @@
 			document.getElementById("zalogin").style.display = "block";
 			document.getElementById("content").style.display = "none";
 		}
+	</script>
+	<script>
+		const dv = document.getElementById("dv");
+		fetch('loginy.json')
+			.then(res => {
+				if (!res.ok) throw new Error("Błąd ładowania pliku JSON");
+				return res.json();
+			})
+			.then(data => {
+				const klucze = Object.keys(data);
+				klucze.forEach(klucz => {
+					const p = document.createElement('p');
+					p.className = "p";
+					p.textContent = klucz;
+					dv.appendChild(p);
+				});
+			})
+			.catch(err => {
+				console.error("Wystąpił błąd:", err);
+				dv.textContent = "Nie udało się załadować danych";
+			});
 	</script>
 </body>
 </html>
