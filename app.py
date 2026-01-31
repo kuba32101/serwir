@@ -9,6 +9,10 @@ pokoje = []
 app.config['SECRET_KEY'] = 'q9eryvcnjisnsxuc'
 socketio = SocketIO(app, cors_allowed_origins="*")
     
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/gra-mafijna-lobby')
 def gra_mafijna():
     return render_template('gra-mafijna-lobby.html')
